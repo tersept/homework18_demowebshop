@@ -22,8 +22,6 @@ public class TestBase {
         String browserSize = System.getProperty("browser_size", "1920x1080");
         String remoteUrl = System.getProperty("remote_driver_url");
 
-        DesiredCapabilities capabilities = new DesiredCapabilities();
-
         if (System.getProperty("selenide.remote") != null) {
             Configuration.remote = System.getProperty("selenide.remote");
             capabilities.setCapability("enableVNC", true);
