@@ -17,18 +17,27 @@ public class TestBase {
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
 
+        String browser = System.getProperty("browser", "chrome");
+        String browserVersion = System.getProperty("browser_version", "100.0");
+        String browserSize = System.getProperty("browser_size", "1920x1080");
+        String remoteUrl = System.getProperty("remote_url");
+
+        DesiredCapabilities capabilities = new DesiredCapabilities();
+
         if (System.getProperty("selenide.remote") != null) {
             Configuration.remote = System.getProperty("selenide.remote");
             capabilities.setCapability("enableVNC", true);
             capabilities.setCapability("enableVideo", true);
         }
 
+        Configuration.remote = remoteUrl;
         Configuration.browserCapabilities = capabilities;
+        Configuration.browser = browser;
+        Configuration.browserVersion = browserVersion;
+        Configuration.browserSize = browserSize;
+        Configuration.browserPosition = "0x0";
         Configuration.baseUrl = "https://demowebshop.tricentis.com/";
         RestAssured.baseURI = "https://demowebshop.tricentis.com/";
-        Configuration.browser = System.getProperty("browser", "chrome");
-        Configuration.browserVersion = System.getProperty("browser_version", "106.0");
-        Configuration.browserSize = System.getProperty("browser_size", "1920x1080");
 
     }
 
