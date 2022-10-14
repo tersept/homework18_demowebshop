@@ -20,15 +20,15 @@ public class TestBase {
         String browser = System.getProperty("browser", "chrome");
         String browserVersion = System.getProperty("browser_version", "100.0");
         String browserSize = System.getProperty("browser_size", "1920x1080");
-        String remoteUrl = System.getProperty("remote_driver_url");
+        // String remoteUrl = System.getProperty("remote_driver_url");
 
         if (System.getProperty("selenide.remote") != null) {
             Configuration.remote = System.getProperty("selenide.remote");
             capabilities.setCapability("enableVNC", true);
             capabilities.setCapability("enableVideo", true);
         }
-
-        Configuration.remote = remoteUrl;
+        Configuration.remote = "https://user1:1234@selenoid.autotests.cloud/wd/hub
+    //    Configuration.remote = remoteUrl;
         Configuration.browserCapabilities = capabilities;
         Configuration.browser = browser;
         Configuration.browserVersion = browserVersion;
