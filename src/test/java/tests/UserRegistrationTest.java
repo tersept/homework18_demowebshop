@@ -54,7 +54,6 @@ public class UserRegistrationTest extends TestBase {
         password = faker.numerify("121212");
     }
 
-    @Tag("demowebshop")
     @Test
     @DisplayName("Регистрация нового пользователя через UI")
     void userRegistrationTest() {
@@ -78,7 +77,6 @@ public class UserRegistrationTest extends TestBase {
         });
     }
 
-    @Tag("demowebshop")
     @Test
     @DisplayName("Регистрация нового пользователя через API")
     void UserRegistrationApiTest() {
@@ -108,7 +106,7 @@ public class UserRegistrationTest extends TestBase {
         userRegistrationData.checkRegistration(email);
     }
 
-    @Tag("demowebshop")
+
     @Test
     @DisplayName("Редактирование профиля пользователя через UI")
     void UserEditionTest() {
