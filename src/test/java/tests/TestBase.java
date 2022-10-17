@@ -2,6 +2,7 @@ package tests;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.logevents.SelenideLogger;
+import config.WebDriverProvider;
 import helpers.Attach;
 import io.qameta.allure.selenide.AllureSelenide;
 import io.restassured.RestAssured;
@@ -16,26 +17,15 @@ public class TestBase {
         SelenideLogger.addListener("allure", new AllureSelenide());
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
-
-        String browser = System.getProperty("browser", "chrome");
-        String browserVersion = System.getProperty("browser_version", "100.0");
-        String browserSize = System.getProperty("browser_size", "1920x1080");
-        // String remoteUrl = System.getProperty("remote_driver_url");
+        WebDriverProvider config = new WebDriverProvider();
+       config.setConfiguration("remote"); // конфиг для удаленного запуска
+       //config.setConfiguration("local"); // раскомментить для локального запуска
 
         if (System.getProperty("selenide.remote") != null) {
             Configuration.remote = System.getProperty("selenide.remote");
             capabilities.setCapability("enableVNC", true);
             capabilities.setCapability("enableVideo", true);
         }
-        Configuration.remote = "https://user1:1234@selenoid.autotests.cloud/wd/hub";
-    //    Configuration.remote = remoteUrl;
-        Configuration.browserCapabilities = capabilities;
-        Configuration.browser = browser;
-        Configuration.browserVersion = browserVersion;
-        Configuration.browserSize = browserSize;
-        Configuration.baseUrl = "https://demowebshop.tricentis.com/";
-        RestAssured.baseURI = "https://demowebshop.tricentis.com/";
-
     }
 
     @AfterEach

@@ -1,16 +1,17 @@
 package tests;
 
 import com.codeborne.selenide.WebDriverRunner;
-import com.codeborne.selenide.impl.DurationFormat;
 import com.github.javafaker.Faker;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Cookie;
+import org.openqa.selenium.WebDriver;
 import pages.UserEditionData;
 import pages.UserRegistrationData;
 
-import java.time.Duration;
-
-import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.Selenide.open;
 import static io.qameta.allure.Allure.step;
 import static io.restassured.RestAssured.given;
 
@@ -32,6 +33,17 @@ public class UserRegistrationTest extends TestBase {
     private String newEmail = "test2@new.tt";
     private String loginPassword = "121212";
 
+    private WebDriver driver;
+
+//    @BeforeEach
+//    public void startDriver() {
+//        driver = new WebDriverProvider().get();
+//    }
+//
+//    @AfterEach
+//    public void stopDriver() {
+//        driver.quit();
+//    }
 
     @BeforeEach
     void setUserData() {
