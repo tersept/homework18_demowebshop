@@ -17,15 +17,13 @@ public class TestBase {
         SelenideLogger.addListener("allure", new AllureSelenide());
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
-        WebDriverProvider config = new WebDriverProvider();
-       config.setConfiguration("remote"); // конфиг для удаленного запуска
-       //config.setConfiguration("local"); // раскомментить для локального запуска
+        capabilities.setCapability("enableVNC", true);
+        capabilities.setCapability("enableVideo", true);
+        Configuration.browserCapabilities = capabilities;
 
-        if (System.getProperty("selenide.remote") != null) {
-            Configuration.remote = System.getProperty("selenide.remote");
-            capabilities.setCapability("enableVNC", true);
-            capabilities.setCapability("enableVideo", true);
-        }
+        WebDriverProvider config = new WebDriverProvider();
+        config.setConfiguration("remote"); // конфиг для удаленного запуска
+       //config.setConfiguration("local"); // раскомментить для локального запуска
     }
 
     @AfterEach
