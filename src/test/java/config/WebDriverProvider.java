@@ -14,6 +14,7 @@ public class WebDriverProvider {
         Configuration.browserPosition = config.getBrowserPosition();
         Configuration.baseUrl = config.getBaseUrl();
         RestAssured.baseURI = config.getBaseURI();
+        Configuration.remote = config.getRemoteUrl();
         return this;
     }
 }
