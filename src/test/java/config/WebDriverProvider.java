@@ -1,20 +1,34 @@
 package config;
 
 import com.codeborne.selenide.Configuration;
+import config.web.WebConfig;
 import io.restassured.RestAssured;
-import org.aeonbits.owner.ConfigFactory;
+import org.openqa.selenium.remote.DesiredCapabilities;
 
 public class WebDriverProvider {
-    public WebDriverProvider setConfiguration(String environment) {
-        System.setProperty("environment", environment);
-        Config config = ConfigFactory.create(Config.class, System.getProperties());
-        Configuration.remote = config.getRemoteUrl();
-        Configuration.browser = config.getBrowser();
-        Configuration.browserVersion = config.getBrowserVersion();
-        Configuration.browserSize = config.getBrowserSize();
-        Configuration.browserPosition = config.getBrowserPosition();
-        Configuration.baseUrl = config.getBaseUrl();
-        RestAssured.baseURI = config.getBaseURI();
-        return this;
+
+    private final WebConfig webConfig;
+
+    public WebDriverProvider(WebConfig webConfig) {
+        this.webConfig = webConfig;
+    }
+
+  public void apiConfig() {
+       RestAssured.baseURI = webConfig.getBaseUrl();
+  }
+
+    public void webConfig() {
+        Configuration.baseUrl = webConfig.getBaseUrl();
+        Configuration.browser = webConfig.getBrowser().toString();
+        Configuration.browserVersion = webConfig.getBrowserVersion();
+        Configuration.browserSize = webConfig.getBrowserSize();
+        Configuration.browserPosition = webConfig.getBrowserPosition();
+        if (webConfig.isRemote()) {
+            Configuration.remote = webConfig.getRemoteUrl();
+            DesiredCapabilities capabilities = new DesiredCapabilities();
+            capabilities.setCapability("enableVNC", true);
+            capabilities.setCapability("enableVideo", true);
+            Configuration.browserCapabilities = capabilities;
+        }
     }
 }
